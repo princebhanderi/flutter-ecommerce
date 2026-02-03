@@ -29,5 +29,14 @@ class JJColors{
   static const Color darkGreyColor = Color(0xFF212121);
   static const Color softGreyColor = Color(0xFFBDBDBD);
   static const Color lightGreyColor = Color(0xFFF5F5F5);
-
+  static const Gradient linearGradientPrimary = LinearGradient(
+    colors: [Color(0xFF0A73B7), Color(0xFF03DAC6)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+  static const Gradient linearGradientSecondary = LinearGradient(
+    colors: [Color(0xFFF5A623), Color(0xFFFFC107)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }
