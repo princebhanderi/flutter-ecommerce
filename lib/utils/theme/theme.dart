@@ -1,3 +1,4 @@
+import 'package:e_commerce/utils/theme/custom_themes/elevated_button_theme.dart';
 import 'package:e_commerce/utils/theme/custom_themes/text_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,6 +13,7 @@ class JJAppTheme {
     primaryColor: Colors.blue,
     scaffoldBackgroundColor: Colors.white,
     textTheme: JJTextTheme.lightTextTheme,
+    elevatedButtonTheme: JJElevatedButtonTheme.lightElevatedButtonTheme,
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -21,5 +23,6 @@ class JJAppTheme {
     primaryColor: Colors.blue,
     scaffoldBackgroundColor: Colors.black,
     textTheme: JJTextTheme.darkTextTheme,
+    elevatedButtonTheme: JJElevatedButtonTheme.darkElevatedButtonTheme,
   );
 }

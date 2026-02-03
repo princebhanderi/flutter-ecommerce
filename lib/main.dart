@@ -15,6 +15,11 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: JJAppTheme.lightTheme,
       darkTheme: JJAppTheme.darkTheme,
+      home: const Scaffold(
+        body: Center(
+          child: Text('Hello, World!'),
+        ),
+      ),
     );
   }
 }
