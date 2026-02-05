@@ -1,3 +1,6 @@
+import 'package:e_commerce/common/widgets/icons/jj_circular_icon.dart';
+import 'package:e_commerce/common/widgets/texts/jj_brand_header.dart';
+import 'package:e_commerce/utils/constants/sizes.dart';
 import 'package:e_commerce/utils/constants/text_strings.dart';
 import 'package:e_commerce/utils/theme/custom_themes/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigate() async {
-    await Future.delayed(const Duration(seconds: 20));
+    // 2-second delay standard for production (was temporarily 20s for testing)
+    await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
       Navigator.pushReplacementNamed(context, '/home');
     }
@@ -28,16 +32,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final brightness = theme.brightness;
-    final isDark = brightness == Brightness.dark;
-
-    // Strict adherence to JJTextTheme
-    final headlineStyle = isDark
-        ? JJTextTheme.darkTextTheme.headlineLarge
-        : JJTextTheme.lightTextTheme.headlineLarge;
-    final taglineStyle = isDark
-        ? JJTextTheme.darkTextTheme.bodyLarge
-        : JJTextTheme.lightTextTheme.bodyLarge;
+    final isDark = theme.brightness == Brightness.dark;
+    
     final loaderStyle = isDark
         ? JJTextTheme.darkTextTheme.labelMedium
         : JJTextTheme.lightTextTheme.labelMedium;
@@ -48,19 +44,20 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: theme.scaffoldBackgroundColor,
       body: LayoutBuilder(
         builder: (context, constraints) {
-
-          // Logic for scaling based on screen size patterns (Mobile < 600, Tablet < 900, Desktop > 900)
+          // Responsive scaling logic
           final double currentShortestSide = constraints.maxWidth < constraints.maxHeight 
               ? constraints.maxWidth 
               : constraints.maxHeight;
           
-          // Using a simple scalar relative to a baseline mobile width (e.g., 375.0)
           final double scaleFactor = (currentShortestSide / 375.0).clamp(0.8, 1.5);
-
-          final double iconSize = 64.0 * scaleFactor;
-          final double iconPadding = 32.0 * scaleFactor;
-          final double spacing = 24.0 * scaleFactor;
-          final double bottomPadding = 40.0 * scaleFactor;
+          
+          // Using centralized JJSizes multiplied by scaleFactor
+          final double spacing = JJSizes.defaultSpace * scaleFactor;
+          final double bottomMargin = 40.0 * scaleFactor;
+          
+          // Icon constants
+          final double iconContainerSize = 120.0 * scaleFactor;
+          final double iconSize = JJSizes.iconXXl * scaleFactor; // 64.0 * scale
 
           return Stack(
             children: [
@@ -68,39 +65,32 @@ class _SplashScreenState extends State<SplashScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Icon Container
-                    Container(
-                      padding: EdgeInsets.all(iconPadding),
-                      decoration: BoxDecoration(
-                        color: primaryColor.withValues(alpha: 0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(
-                        Icons.shopping_bag_outlined,
-                        size: iconSize,
-                        color: primaryColor,
-                      ),
+                    // Reusable Circular Icon Component
+                    JJCircularIcon(
+                       icon: Icons.shopping_bag_outlined,
+                       width: iconContainerSize,
+                       height: iconContainerSize,
+                       size: iconSize,
+                       color: primaryColor,
+                       backgroundColor: primaryColor.withValues(alpha: 0.1),
                     ),
-                    SizedBox(height: spacing),
-                    // App Name
-                    Text(
-                      JJTexts.appName,
-                      style: headlineStyle,
-                    ),
-                    SizedBox(height: spacing / 2), // Slightly closer
-                    // Tagline
-                    Text(
-                      JJTexts.appTagLine,
-                      style: taglineStyle,
+                    
+                    SizedBox(height: spacing), // 24 * scale
+                    
+                    // Reusable Brand Header Component
+                    Transform.scale(
+                      scale: scaleFactor,
+                      child: const JJBrandHeader(),
                     ),
                   ],
                 ),
               ),
+              
               // Bottom Loader
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: EdgeInsets.only(bottom: bottomPadding),
+                  padding: EdgeInsets.only(bottom: bottomMargin),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -108,9 +98,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         JJTexts.splashLoaderText,
                         style: loaderStyle,
                       ),
-                      SizedBox(height: spacing / 2),
+                      SizedBox(height: JJSizes.sm * scaleFactor),
                       SizedBox(
-                        width: 120 * scaleFactor, // Scaled width
+                        width: JJSizes.buttonWidth * scaleFactor, // 120 * scale
                         child: LinearProgressIndicator(
                           color: primaryColor,
                           backgroundColor: theme.dividerColor.withValues(alpha: 0.2),
