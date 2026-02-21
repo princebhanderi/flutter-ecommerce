@@ -21,6 +21,8 @@ class JJSizes {
   static const double fontSizeSm = 12.0;
   static const double fontSizeMd = 14.0;
   static const double fontSizeLg = 16.0;
+  static const double fontSizexl = 18.0;
+  static const double fontSizexxl = 18.0;
 
   // Button sizes
   static const double buttonHeight = 18.0;

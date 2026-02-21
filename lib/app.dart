@@ -1,3 +1,4 @@
+import 'package:e_commerce/features/login.dart';
 import 'package:e_commerce/features/splash/splash_screen.dart';
 import 'package:e_commerce/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -17,11 +18,7 @@ class App extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const SplashScreen(),
-        '/home': (context) => const Scaffold(
-          body: Center(
-            child: Text('Home Screen'),
-          ),
-        ),
+        '/home': (context) => Login(),
       },
     );
   }

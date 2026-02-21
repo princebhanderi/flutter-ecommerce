@@ -1,3 +1,5 @@
+import 'package:e_commerce/utils/constants/colors.dart';
+import 'package:e_commerce/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class JJElevatedButtonTheme {
@@ -6,17 +8,17 @@ class JJElevatedButtonTheme {
   static ElevatedButtonThemeData lightElevatedButtonTheme =
       ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.blue,
-      foregroundColor: Colors.white,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-       disabledForegroundColor: Colors.grey,
-      side: BorderSide(color: Colors.blue),
+      backgroundColor: JJColors.buttonPrimaryColor,
+      foregroundColor: JJColors.backgroundColorLight,
+      disabledBackgroundColor: JJColors.buttonDisabledColor,
+      disabledForegroundColor: JJColors.softGreyColor,
+      padding: const EdgeInsets.symmetric(vertical: JJSizes.buttonHeight),
       textStyle: const TextStyle(
-        fontSize: 16,
+        fontSize: JJSizes.fontSizeLg,
         fontWeight: FontWeight.bold,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(JJSizes.buttonRadius),
       ),
     ),
   );
@@ -24,18 +26,17 @@ class JJElevatedButtonTheme {
   static ElevatedButtonThemeData darkElevatedButtonTheme =
       ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      backgroundColor: Colors.blueAccent,
-      foregroundColor: Colors.black,
-      disabledBackgroundColor: Colors.grey,
-      disabledForegroundColor: Colors.grey,
-      side: BorderSide(color: Colors.blue),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      backgroundColor: JJColors.buttonPrimaryColor,
+      foregroundColor: JJColors.backgroundColorLight,
+      disabledBackgroundColor: JJColors.buttonDisabledColor,
+      disabledForegroundColor: JJColors.softGreyColor,
+      padding: const EdgeInsets.symmetric(vertical: JJSizes.buttonHeight),
       textStyle: const TextStyle(
-        fontSize: 16,
+        fontSize: JJSizes.fontSizeLg,
         fontWeight: FontWeight.bold,
       ),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(JJSizes.buttonRadius),
       ),
     ),
   );

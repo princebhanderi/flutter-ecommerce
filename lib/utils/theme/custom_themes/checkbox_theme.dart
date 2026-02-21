@@ -5,12 +5,26 @@ class JJCheckBoxTheme {
 
   //customisaed checkbox theme for light and dark theme
   static CheckboxThemeData lightCheckboxTheme = CheckboxThemeData(
-    fillColor: MaterialStateProperty.all(Colors.blue),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     checkColor: MaterialStateProperty.all(Colors.white),
+    fillColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return Colors.blue;
+      } else {
+        return Colors.transparent;
+      }
+    }),
   );
 
   static CheckboxThemeData darkCheckboxTheme = CheckboxThemeData(
-    fillColor: MaterialStateProperty.all(Colors.lightBlue),
-    checkColor: MaterialStateProperty.all(Colors.black),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+    checkColor: MaterialStateProperty.all(Colors.white),
+    fillColor: MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return Colors.blue;
+      } else {
+        return Colors.transparent;
+      }
+    }),
   );
 }

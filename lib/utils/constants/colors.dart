@@ -5,6 +5,7 @@ class JJColors{
   JJColors._();
 
   static const Color primaryColor = Color(0xFF0A73B7);
+  static const Color primaryColorDark = Color(0xFF64B5F6);
   static const Color secondaryColor = Color(0xFFF5A623);
   static const Color backgroundColorLight = Color(0xFFFFFFFF);
   static const Color backgroundColorDark = Color(0xFF121212);
