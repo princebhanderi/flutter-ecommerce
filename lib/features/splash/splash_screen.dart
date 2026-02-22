@@ -25,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // 2-second delay standard for production (was temporarily 20s for testing)
     await Future.delayed(const Duration(seconds: 2));
     if (mounted) {
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 

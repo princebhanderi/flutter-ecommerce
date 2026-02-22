@@ -224,7 +224,7 @@ class _LoginState extends State<Login> {
                     style: theme.textTheme.bodyMedium,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () => Navigator.pushNamed(context, '/signup'),
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     child: Text(
