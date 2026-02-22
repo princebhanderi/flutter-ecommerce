@@ -3,6 +3,7 @@ import 'package:e_commerce/common/widgets/texts/jj_brand_header.dart';
 import 'package:e_commerce/utils/constants/sizes.dart';
 import 'package:e_commerce/utils/constants/text_strings.dart';
 import 'package:e_commerce/utils/theme/custom_themes/text_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,8 +23,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> _navigate() async {
-    // 2-second delay standard for production (was temporarily 20s for testing)
-    await Future.delayed(const Duration(seconds: 2));
+    // Skip splash screen delay on Web
+    if (!kIsWeb) {
+      // 2-second delay standard for production
+      await Future.delayed(const Duration(seconds: 2));
+    }
+
     if (mounted) {
       Navigator.pushReplacementNamed(context, '/login');
     }
@@ -33,11 +38,6 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
-    
-    final loaderStyle = isDark
-        ? JJTextTheme.darkTextTheme.labelMedium
-        : JJTextTheme.lightTextTheme.labelMedium;
-
     final primaryColor = theme.primaryColor;
 
     return Scaffold(
@@ -49,8 +49,17 @@ class _SplashScreenState extends State<SplashScreen> {
               ? constraints.maxWidth 
               : constraints.maxHeight;
           
-          final double scaleFactor = (currentShortestSide / 375.0).clamp(0.8, 1.5);
+          // Capping at 1.2 to prevent oversized elements on Web/Large screens
+          final double scaleFactor = (currentShortestSide / 375.0).clamp(0.8, 1.2);
           
+          final loaderStyle = isDark
+              ? JJTextTheme.darkTextTheme.labelMedium?.copyWith(
+                  fontSize: (JJTextTheme.darkTextTheme.labelMedium?.fontSize ?? 11) * scaleFactor,
+                )
+              : JJTextTheme.lightTextTheme.labelMedium?.copyWith(
+                  fontSize: (JJTextTheme.lightTextTheme.labelMedium?.fontSize ?? 11) * scaleFactor,
+                );
+
           // Using centralized JJSizes multiplied by scaleFactor
           final double spacing = JJSizes.defaultSpace * scaleFactor;
           final double bottomMargin = 40.0 * scaleFactor;
@@ -72,10 +81,10 @@ class _SplashScreenState extends State<SplashScreen> {
                        height: iconContainerSize,
                        size: iconSize,
                        color: primaryColor,
-                       backgroundColor: primaryColor.withValues(alpha: 0.1),
+                       backgroundColor: primaryColor.withOpacity(0.1),
                     ),
                     
-                    SizedBox(height: spacing), // 24 * scale
+                    SizedBox(height: spacing),
                     
                     // Reusable Brand Header Component
                     Transform.scale(
@@ -100,10 +109,10 @@ class _SplashScreenState extends State<SplashScreen> {
                       ),
                       SizedBox(height: JJSizes.sm * scaleFactor),
                       SizedBox(
-                        width: JJSizes.buttonWidth * scaleFactor, // 120 * scale
+                        width: JJSizes.buttonWidth * scaleFactor,
                         child: LinearProgressIndicator(
                           color: primaryColor,
-                          backgroundColor: theme.dividerColor.withValues(alpha: 0.2),
+                          backgroundColor: theme.dividerColor.withOpacity(0.2),
                         ),
                       ),
                     ],
